@@ -1,0 +1,191 @@
+{% extends "layout.html.twig" %}
+
+{% block title %} Chapitre {{ chapter.id }} {% endblock %}
+
+{% block content %}
+
+<div id="chap_blockpage">
+    <div class="container">
+
+<!--
+    {% for flashMessage in app.session.flashbag.get('marked') %}
+        <div class="col-md-offset-1 col-md-7 alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+-->
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <div id="chap_header">
+                    <h2>Chapitre {{ chapter.id }}</h2>
+                    <h3>{{ chapter.title }}</h3>
+                    <p>Publié le : {{ chapter.date }}</p>
+                </div>                
+
+                <div id="chap_body">
+                    <div id="page_container">
+
+                        {% for key, value in pages %}
+
+                            <div class="chapter_page" id="chapter_page_{{ key + 1 }}">{{ value | raw }}</div>
+
+                        {% endfor %}
+
+                        <div id="pagination_container">
+                            <button id="prev_page">Précédent</button>
+
+                                {% for key, value in pages %}
+
+                                        <button class="page_pagination">{{ key + 1 }}</button>
+
+                                {% endfor %}
+                        
+                            <button id="next_page">Suivant</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div id="chap_right_panel">
+                    <div id="panel_box1">
+                        <div class="panel_block_list">
+                            <a href="{{ path('board') }}">
+                                <div class="block_list_unit sweep-to-right hvr-underline-from-center">Tableau de bord</div>
+                            </a>
+                        </div>    
+                    </div>
+
+                    <div id="panel_box2">
+                        <h4>Navigation</h4>
+                        <div class="panel_block_list">
+                            
+                            <a href="{{ path('chapter', { 'id': chapter.id + 1 }) }}">
+                                <div class="block_list_unit hover1">Chapitre Suivant</div>
+                            </a>
+                            
+                            {% if chapter.id > 1 %}
+
+                                <a href="{{ path('chapter', { 'id': chapter.id - 1 }) }}">
+                                    <div class="block_list_unit hover1">Chapitre Précédent</div>
+                                </a>
+
+                            {% endif %}                            
+                            
+                        </div>
+                    </div>
+
+                    <div id="panel_box3">
+                        <h4>Marque page</h4>
+                        <div class="panel_block_list">
+                            <a href="{{ path('marker', {'id':chapter.id}) }}">
+                                <div id="page_marker" class="block_list_unit hover1">
+                                <p style="margin:0">Marquer la page<p> 
+                                <i id="ico_marker" class="fa fa-star" aria-hidden="true"></i></div>
+                            </a>
+                            
+                        </div>
+                    </div>
+
+                    <div id="panel_box4">
+                        <h4>Annexe</h4>
+                        <div class="panel_block_list">
+                            
+                            <a href="http://wikipedia.fr">
+                                <div class="block_list_unit hover1">Wikipedia</div>
+                            </a>
+                            
+                            <a href="http://le-dictionnaire.com/">
+                                <div class="block_list_unit hover1">Dictionnaire</div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div id="panel_box5">
+                        <h4>Suivre l'auteur</h4>
+                        <ul class="panel_block_list">
+                            <li class="block_list_unit">Facebook</li>
+                            <li class="block_list_unit">Twitter</li>
+                            <li class="block_list_unit">Google +</li>
+                        </ul>
+                    </div>
+                                        
+                    
+                </div>
+            </div>
+
+        </div>
+
+         <div class="row">
+                <div class="col-md-8">
+                    <div id="add_comment_container">
+
+                        <h3>Ajouter un commentaire</h3>
+
+                        {% if commentForm %}
+
+                        {{ form_start(commentForm) }}
+
+                            <div class="form-group">
+                                {{ form_errors(commentForm.content) }}
+                                {{ form_widget(commentForm.content, { 'attr':  {
+                                    'rows': '4',
+                                    'class': 'form-control',
+                                    'placeholder': 'Tapez votre commentaire'
+                                }}) }}
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary" value="Publier commentaire" />
+                            </div>
+
+                        {{ form_end(commentForm) }}
+
+                        {% for flashMessage in app.session.flashbag.get('success') %}
+
+                            <div class="alert alert-success">
+                                {{ flashMessage }}
+                            </div>
+
+                        {% endfor %}
+
+                        {% else %}
+
+                            <a href="{{ path('login') }} ">Connectez-vous</a> pour ajouter un commentaire.
+
+                        {% endif %}
+                    
+                    </div>
+                </div>            
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="comment_container">
+
+                        <h3 style="margin-bottom:40px">Commentaires :</h3>
+
+                            {% for comment in comments %}
+
+                                <div id="user_comment_container">
+                                    <strong>{{ comment.user.username }} :</strong>
+                                    <p>{{ comment.content }}</p>
+                                </div>
+
+                            {% else %}
+
+                                Il n'y a aucun commentaires
+
+                            {% endfor %}
+                    
+                    </div>
+                </div>            
+            </div>
+
+    </div>
+</div>
+
+{% endblock %}
