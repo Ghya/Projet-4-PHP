@@ -12,6 +12,7 @@ class PageController {
         // reception url pour chapitre courant
         this.url = document.location.href;
         this.urlChapterNbr  = this.url.substring(this.url.lastIndexOf( "/" )+1 );
+        
 
         // reception des cookies
         this.page = this.getCookie("page");
@@ -70,24 +71,25 @@ class PageController {
 
     getCookie(name) {
 
-     if(document.cookie.length == 0)
-       return null;
+        if(document.cookie.length == 0)
+        return null;
 
-     var regSepCookie = new RegExp('(; )', 'g');
-     var cookies = document.cookie.split(regSepCookie);
+        var regSepCookie = new RegExp('(; )', 'g');
+        var cookies = document.cookie.split(regSepCookie);
 
-     for(var i = 0; i < cookies.length; i++){
-       var regInfo = new RegExp('=', 'g');
-       var infos = cookies[i].split(regInfo);
-       if(infos[0] == name){
-         return unescape(infos[1]);
-       }
-     }
-     return null;
+        for(var i = 0; i < cookies.length; i++){
+            var regInfo = new RegExp('=', 'g');
+            var infos = cookies[i].split(regInfo);
+            if(infos[0] == name){
+                return unescape(infos[1]);
+            }
+        }
+        return null;
    }
 
    checkMarker() {
-       if (this.page == this.currentSlide + 1) {
+       console.log(this.urlChapterNbr);
+       if (this.page == (this.currentSlide + 1) && this.markChapter === this.urlChapterNbr) {
             $('#ico_marker').css('display', 'block');
         } else {
             $('#ico_marker').css('display', 'none');  

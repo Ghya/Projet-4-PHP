@@ -11,4 +11,6 @@ $(function () {
     // View Controller
     view.listenEvent();
 
+    console.log("salut");
+
 });
