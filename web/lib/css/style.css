@@ -11,7 +11,6 @@ body {
 .footer {
     border-top: 1px solid #ccc;
     padding: 50px;
-    height: 200px;
     text-align: center;
     background-color: #0B3C75;
     color: white;
@@ -195,6 +194,10 @@ body {
 
 .chapter_page{
     padding: 50px;
+    position: absolute;
+    text-align: justify;
+    padding-top: 0;
+    margin-top: 30px;
 }
 
 .chapter_page p{
@@ -230,13 +233,6 @@ body {
     padding: 60px;
     padding-bottom: 0;
     padding-top: 10px;
-}
-
-.chapter_page{
-    position: absolute;
-    text-align: justify;
-    padding-top: 0;
-    margin-top: 30px;
 }
 
 .chapter_img{
@@ -441,6 +437,41 @@ body {
     background-color: white;
 }
 
+@media screen and (max-width: 970px) {
+    .board_chapter_container{
+        flex-direction: column;
+    }
 
+    .chapter_page{
+        padding: 18px;
+    }
 
+    #page_container{
+        height: 950px;
+    }
 
+    #board_body, #chap_body {
+        margin-bottom: 20px;
+    }
+
+    .chapter_list_block{
+        padding: 5px;
+        font-size: 10px;
+    }
+
+    .chapter_list_block h4, h5{
+        font-size: 12px;
+    }
+
+    #info_chapter_block {
+        padding-top: 10px;
+    }
+
+    #info_chapter_block a {
+        margin-bottom: 10px;
+    }
+
+    #comment_control_page_title {
+        padding: 15px 0;
+    }
+}

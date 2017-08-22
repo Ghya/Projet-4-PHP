@@ -88,7 +88,6 @@ class PageController {
    }
 
    checkMarker() {
-       console.log(this.urlChapterNbr);
        if (this.page == (this.currentSlide + 1) && this.markChapter === this.urlChapterNbr) {
             $('#ico_marker').css('display', 'block');
         } else {
